@@ -1,0 +1,190 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  #lyricsResult pre {
+    background-color: #fff;
+    border-left: 4px solid #0d6efd;
+    padding: 1rem;
+    white-space: pre-wrap;
+    font-size: 1rem;
+  }
+  
+  .dark-mode {
+    background-color: #121212 !important;
+    color: #ffffff;
+  }
+  
+  .dark-mode .card {
+    background-color: #1e1e1e;
+    color: white;
+  }
+
+  .dark-mode #lyricsResult pre {
+    color: #ffffff;
+    background-color: #7978866b;
+  }
+  
+  
+  .dark-mode input,
+  .dark-mode button {
+    background-color: #2a2a2a;
+    color: white;
+    border: 1px solid #555;
+  }
+  
+  .dark-mode pre {
+    background-color: #2a2a2a;
+    color: white;
+    border-color: #333;
+  }
+  
+  #songInfoResult .card {
+    margin-top: 20px;
+  }
+  #songInfoResult .card img {
+    max-width: 100%;
+    height: auto;
+  }
+ 
+  
+/* 
+* {
+  border: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --hue: 223;
+  --primary: hsl(var(--hue), 90%, 50%);
+  --trans-dur: 0.6s;
+  --trans-timing: cubic-bezier(0.65, 0, 0.35, 1);
+  font-size: 16px; 
+}
+
+body, input {
+  font: 1rem/1.5 sans-serif;
+}
+
+body {
+  background-color: hsl(var(--hue), 10%, 90%);
+  color: hsl(var(--hue), 10%, 10%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+  transition: background-color var(--trans-dur), color var(--trans-dur);
+}
+
+body:has(.switch__input:checked) {
+  background-color: hsl(var(--hue), 10%, 20%);
+  color: hsl(var(--hue), 10%, 90%);
+}
+
+.container {
+  max-width: 500px;
+  width: 100%;
+}
+
+h1 {
+  font-size: 1.8rem; 
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.card {
+  padding: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+input.form-control {
+  font-size: 1rem; 
+  padding: 8px;
+  margin-bottom: 15px;
+}
+
+button {
+  font-size: 1rem;
+  padding: 10px 15px;
+  border-radius: 8px;
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--primary);
+}
+
+.d-grid {
+  display: grid;
+  grid-gap: 10px;
+}
+
+.d-grid .btn {
+  padding: 12px;
+  border-radius: 8px;
+}
+
+#songInfoResult {
+  margin-top: 20px;
+}
+
+#lyricsResult {
+  margin-top: 20px;
+}
+
+#songInfoResult .card {
+  background-color: #f8f9fa;
+}
+
+#lyricsResult pre {
+  background-color: #fff;
+  border-left: 4px solid #0d6efd;
+  padding: 1rem;
+  white-space: pre-wrap;
+  font-size: 1rem;
+}
+
+.dark-mode {
+  background-color: #121212 !important;
+  color: #ffffff;
+}
+
+.dark-mode .card {
+  background-color: #1e1e1e;
+  color: white;
+}
+
+.dark-mode #lyricsResult pre {
+  color: #ffffff;
+  background-color: #7978866b;
+}
+
+.dark-mode input,
+.dark-mode button {
+  background-color: #2a2a2a;
+  color: white;
+  border: 1px solid #555;
+}
+
+.dark-mode pre {
+  background-color: #2a2a2a;
+  color: white;
+  border-color: #333;
+}
+
+#songInfoResult .card {
+  margin-top: 20px;
+}
+
+#songInfoResult .card img {
+  max-width: 100%;
+  height: auto;
+} */
