@@ -1,6 +1,16 @@
 body {
   font-family: sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
+  background-image: url("media/background2.jpg");
+  background-size: 100vw 100vh;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  -webkit-backdrop-filter: blur(2px);
+          backdrop-filter: blur(2px);
 }
 
 .card,
@@ -11,19 +21,12 @@ pre {
 }
 
 #lyricsResult pre {
-  background-color: #fff;
-  border-left: 4px solid #0d6efd;
+  background-color: #f0f0f0;
+  border-left: 4px solid #8776a7;
   padding: 1rem;
   white-space: pre-wrap;
   font-size: 1rem;
-}
-
-#songInfoResult .card {
-  margin-top: 20px;
-}
-#songInfoResult .card img {
-  max-width: 100%;
-  height: auto;
+  color: #000;
 }
 
 .dark-mode {
@@ -34,9 +37,13 @@ pre {
   background-color: #1e1e1e;
   color: #fff;
 }
+.dark-mode #lyricsResult {
+  background-color: #1e1e1e !important;
+}
 .dark-mode #lyricsResult pre {
   color: #fff;
   background-color: rgba(121, 120, 134, 0.4196078431);
+  border-color: #333;
 }
 .dark-mode input {
   background-color: #2a2a2a !important;
@@ -55,4 +62,72 @@ pre {
   background-color: #2a2a2a;
   color: #fff;
   border-color: #333;
+}
+
+button {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+button.btn-primary {
+  background-color: #8776a7 !important;
+  border-color: #8776a7 !important;
+  color: #f0f0f0 !important;
+}
+button.btn-primary:hover {
+  background-color: #6d5c8e !important;
+  border-color: #6d5c8e !important;
+  color: #f0f0f0 !important;
+}
+button.btn-primary:focus {
+  outline: none;
+  box-shadow: none;
+}
+button.btn-light {
+  background-color: #f0f0f0;
+  border-color: #333;
+  color: #fff;
+}
+button.btn-light:hover {
+  background-color: #8776a7;
+  border-color: #8776a7;
+}
+button.btn-dark {
+  background-color: #333;
+  border-color: #555;
+  color: #fff;
+}
+button.btn-dark:hover {
+  background-color: #1a1a1a;
+  border-color: #3c3c3c;
+}
+button.active {
+  background-color: #8776a7;
+  border-color: #8776a7;
+  color: #f0f0f0;
+}
+
+input {
+  transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 0.5rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  border: 1px solid #333;
+}
+input:focus {
+  outline: none;
+  border-color: #8776a7;
+}
+
+@media (max-width: 768px) {
+  body {
+    background-size: cover;
+  }
+  .card {
+    margin-top: 15px;
+    padding: 1rem;
+  }
+  input,
+  button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
 }/*# sourceMappingURL=style.css.map */

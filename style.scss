@@ -1,11 +1,11 @@
 $font-family: sans-serif;
 
-$color-light-bg: #fff;
+$color-light-bg: #f0f0f0;
 $color-dark-bg: #121212;
 $color-dark-card-bg: #1e1e1e;
 $color-dark-input-bg: #2a2a2a;
 $color-dark-placeholder: white;
-$color-light-border: #0d6efd;
+$color-light-border: #8776a7;
 $color-dark-border: #333;
 $color-dark-border-light: #555;
 $color-highlight-bg: #7978866b;
@@ -14,10 +14,20 @@ $color-transition: 0.3s ease;
 $color-light-text: #000;
 $color-dark-text: #fff;
 
+$background-image-url: url('media/background2.jpg'); 
 
 body {
   font-family: $font-family;
   transition: background-color $color-transition, color $color-transition;
+  background-image: $background-image-url;
+  background-size: 100vw 100vh; 
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  height: 100vh; 
+  width: 100vw;  
+  position: relative; 
+  backdrop-filter: blur(2px); 
 }
 
 .card,
@@ -27,7 +37,7 @@ pre {
   transition: background-color $color-transition, color $color-transition;
 }
 
-// Light Mode
+// Light Mode Styles
 #lyricsResult {
   pre {
     background-color: $color-light-bg;
@@ -35,21 +45,11 @@ pre {
     padding: 1rem;
     white-space: pre-wrap;
     font-size: 1rem;
+    color: $color-light-text;
   }
 }
 
-#songInfoResult {
-  .card {
-    margin-top: 20px;
-
-    img {
-      max-width: 100%;
-      height: auto;
-    }
-  }
-}
-
-// Dark Mode
+// Dark Mode Styles
 .dark-mode {
   background-color: $color-dark-bg !important;
   color: $color-dark-text;
@@ -63,7 +63,10 @@ pre {
     pre {
       color: $color-dark-text;
       background-color: $color-highlight-bg;
+      border-color: $color-dark-border;
     }
+    
+    background-color: $color-dark-card-bg !important;  
   }
 
   input {
@@ -81,5 +84,87 @@ pre {
     background-color: $color-dark-input-bg;
     color: $color-dark-text;
     border-color: $color-dark-border;
+  }
+}
+
+
+button {
+  transition: background-color $color-transition, color $color-transition;
+
+  &.btn-primary {
+    background-color: $color-light-border !important;
+    border-color: $color-light-border !important;
+    color: $color-light-bg !important;
+
+    &:hover {
+      background-color: darken($color-light-border, 10%) !important;
+      border-color: darken($color-light-border, 10%) !important;
+      color: $color-light-bg !important; 
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+
+  &.btn-light {
+    background-color: $color-light-bg;
+    border-color: $color-dark-border;
+    color: $color-dark-text;
+
+    &:hover {
+      background-color: $color-light-border;
+      border-color: $color-light-border;
+    }
+  }
+
+  &.btn-dark {
+    background-color: $color-dark-border;
+    border-color: $color-dark-border-light;
+    color: $color-dark-text;
+
+    &:hover {
+      background-color: darken($color-dark-border, 10%);
+      border-color: darken($color-dark-border-light, 10%);
+    }
+  }
+
+  &.active {
+    background-color: $color-light-border;
+    border-color: $color-light-border;
+    color: $color-light-bg;
+  }
+}
+
+// Input Styles
+input {
+  transition: background-color $color-transition, color $color-transition;
+  padding: 0.5rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  border: 1px solid $color-dark-border;
+
+  &:focus {
+    outline: none;
+    border-color: $color-light-border;
+  }
+}
+
+// Responsive Design Enhancements
+@media (max-width: 768px) {
+  body {
+    background-size: cover; 
+  }
+
+  .card {
+    margin-top: 15px;
+    padding: 1rem;
+  }
+
+  input,
+  button {
+    width: 100%;
+    margin-bottom: 10px;
   }
 }

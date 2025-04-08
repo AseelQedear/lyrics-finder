@@ -106,11 +106,13 @@ searchBtn.addEventListener('click', () => __awaiter(void 0, void 0, void 0, func
 }));
 lightModeBtn.addEventListener('click', () => {
     document.body.classList.remove('dark-mode');
+    document.body.style.backgroundImage = "url('media/background2.jpg')";
     lightModeBtn.classList.add('active');
     darkModeBtn.classList.remove('active');
 });
 darkModeBtn.addEventListener('click', () => {
     document.body.classList.add('dark-mode');
+    document.body.style.backgroundImage = "url('media/background1.jpg')";
     darkModeBtn.classList.add('active');
     lightModeBtn.classList.remove('active');
 });
