@@ -1,55 +1,94 @@
 const searchBtn = document.getElementById('searchBtn') as HTMLButtonElement;
 const lyricsResult = document.getElementById('lyricsResult') as HTMLElement;
-const songInfoResult = document.getElementById('songInfoResult') as HTMLElement;  // For Song Info
-const toggleBtn = document.getElementById('toggleMode') as HTMLButtonElement;
+const songInfoResult = document.getElementById('songInfoResult') as HTMLElement;
 
-const youtubeAPIKey = 'AIzaSyAoKrt41ppFxbsuc0ExfCM5q4y32GDrCGw'; // Replace with your YouTube API key
+const lightModeBtn = document.getElementById('lightModeBtn') as HTMLButtonElement;
+const darkModeBtn = document.getElementById('darkModeBtn') as HTMLButtonElement;
+
+const youtubeAPIKey = 'AIzaSyAoKrt41ppFxbsuc0ExfCM5q4y32GDrCGw'; 
+
+const clearElement = (element: HTMLElement) => {
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+};
+
+const createAlert = (message: string, type: 'danger' | 'warning') => {
+  const alert = document.createElement('div');
+  alert.className = `alert alert-${type}`;
+  alert.textContent = message;
+  return alert;
+};
 
 const getYouTubeSongInfo = async (artist: string, title: string) => {
-    try {
-      const searchQuery = `${artist} - ${title}`; // Combine artist and title for better matching
-      const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(searchQuery)}&key=${youtubeAPIKey}`);
-      const data = await response.json();
-  
-      if (data.items && data.items.length > 0) {
-        const video = data.items[0];  // Get the first video result
-  
-        // Display song info (YouTube video)
-        songInfoResult.innerHTML = `
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">${video.snippet.title}</h5>
-              <p class="card-text">${video.snippet.description}</p>
-              <a href="https://www.youtube.com/watch?v=${video.id.videoId}" target="_blank" class="btn btn-primary">Watch on YouTube</a>
-            </div>
-          </div>
-        `;
-      } else {
-        songInfoResult.innerHTML = `<div class="alert alert-warning">No YouTube video found for this song. Try searching for a different song or check spelling.</div>`;
-      }
-    } catch (error) {
-      songInfoResult.innerHTML = `<div class="alert alert-danger">Failed to retrieve song info from YouTube. Please try again later.</div>`;
-      console.error(error);
-    }
-  };
-  
+  try {
+    const searchQuery = `${artist} - ${title}`;
+    const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(searchQuery)}&key=${youtubeAPIKey}`);
+    const data = await response.json();
 
-// Function to get lyrics from Lyrics API
+    clearElement(songInfoResult);
+
+    if (data.items && data.items.length > 0) {
+      const video = data.items[0];
+
+      const card = document.createElement('div');
+      card.className = 'card';
+
+      const cardBody = document.createElement('div');
+      cardBody.className = 'card-body';
+
+      const titleEl = document.createElement('h5');
+      titleEl.className = 'card-title';
+      titleEl.textContent = video.snippet.title;
+
+      const descEl = document.createElement('p');
+      descEl.className = 'card-text';
+      descEl.textContent = video.snippet.description;
+
+      const link = document.createElement('a');
+      link.className = 'btn btn-primary';
+      link.href = `https://www.youtube.com/watch?v=${video.id.videoId}`;
+      link.target = '_blank';
+      link.textContent = 'Watch on YouTube';
+
+      cardBody.appendChild(titleEl);
+      cardBody.appendChild(descEl);
+      cardBody.appendChild(link);
+      card.appendChild(cardBody);
+      songInfoResult.appendChild(card);
+    } else {
+      songInfoResult.appendChild(createAlert('No YouTube video found for this song.', 'warning'));
+    }
+  } catch (error) {
+    clearElement(songInfoResult);
+    songInfoResult.appendChild(createAlert('Error getting YouTube video.', 'danger'));
+    console.error(error);
+  }
+};
+
 const getLyrics = async (artist: string, title: string) => {
   try {
     const response = await fetch(`https://api.lyrics.ovh/v1/${artist}/${title}`);
     const data = await response.json();
 
+    clearElement(lyricsResult);
+
     if (data.lyrics) {
-      lyricsResult.innerHTML = `
-        <h5 class="mt-4">${title} - ${artist}</h5>
-        <pre>${data.lyrics}</pre>
-      `;
+      const header = document.createElement('h5');
+      header.className = 'mt-4';
+      header.textContent = `${title} - ${artist}`;
+
+      const pre = document.createElement('pre');
+      pre.textContent = data.lyrics;
+
+      lyricsResult.appendChild(header);
+      lyricsResult.appendChild(pre);
     } else {
-      lyricsResult.innerHTML = `<div class="alert alert-danger">Lyrics not found.</div>`;
+      lyricsResult.appendChild(createAlert('Lyrics not found.', 'danger'));
     }
   } catch (error) {
-    lyricsResult.innerHTML = `<div class="alert alert-danger">Something went wrong. Please try again.</div>`;
+    clearElement(lyricsResult);
+    lyricsResult.appendChild(createAlert('Something went wrong. Please try again.', 'danger'));
     console.error(error);
   }
 };
@@ -58,103 +97,33 @@ searchBtn.addEventListener('click', async () => {
   const artistInput = (document.getElementById('artist') as HTMLInputElement).value.trim();
   const titleInput = (document.getElementById('title') as HTMLInputElement).value.trim();
 
+  clearElement(lyricsResult);
+  clearElement(songInfoResult);
+
   if (!artistInput || !titleInput) {
-    lyricsResult.innerHTML = `<div class="alert alert-warning">Please enter both artist and song title.</div>`;
+    lyricsResult.appendChild(createAlert('Please enter both artist and song title.', 'warning'));
     return;
   }
 
-  lyricsResult.innerHTML = `<div class="text-center"><div class="spinner-border"></div></div>`;
-  songInfoResult.innerHTML = ''; // Clear song info before fetching new one
+  // Loading Spinner
+  const spinner = document.createElement('div');
+  spinner.className = 'text-center';
+  spinner.innerHTML = `<div class="spinner-border"></div>`;
+  lyricsResult.appendChild(spinner);
 
-  // Get lyrics
   await getLyrics(artistInput, titleInput);
-
-  // Get song info from YouTube
   await getYouTubeSongInfo(artistInput, titleInput);
 });
 
-// Toggle Dark Mode
-toggleBtn.addEventListener('click', () => {
-  document.body.classList.toggle('dark-mode');
+// Dark/Light Mode Toggle
+lightModeBtn.addEventListener('click', () => {
+  document.body.classList.remove('dark-mode');
+  lightModeBtn.classList.add('active');
+  darkModeBtn.classList.remove('active');
 });
 
-
-// const searchBtn = document.getElementById('searchBtn') as HTMLButtonElement;
-// const lyricsResult = document.getElementById('lyricsResult') as HTMLElement;
-// const songInfoResult = document.getElementById('songInfoResult') as HTMLElement;  // For Song Info
-// const toggleBtn = document.getElementById('toggleMode') as HTMLButtonElement;
-
-// const youtubeAPIKey = 'AIzaSyAoKrt41ppFxbsuc0ExfCM5q4y32GDrCGw'; // Replace with your YouTube API key
-
-// const getYouTubeSongInfo = async (artist: string, title: string) => {
-//     try {
-//       const searchQuery = `${artist} - ${title}`; // Combine artist and title for better matching
-//       const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(searchQuery)}&key=${youtubeAPIKey}`);
-//       const data = await response.json();
-  
-//       if (data.items && data.items.length > 0) {
-//         const video = data.items[0];  // Get the first video result
-  
-//         // Display song info (YouTube video)
-//         songInfoResult.innerHTML = `
-//           <div class="card">
-//             <div class="card-body">
-//               <h5 class="card-title">${video.snippet.title}</h5>
-//               <p class="card-text">${video.snippet.description}</p>
-//               <a href="https://www.youtube.com/watch?v=${video.id.videoId}" target="_blank" class="btn btn-primary">Watch on YouTube</a>
-//             </div>
-//           </div>
-//         `;
-//       } else {
-//         songInfoResult.innerHTML = `<div class="alert alert-warning">No YouTube video found for this song. Try searching for a different song or check spelling.</div>`;
-//       }
-//     } catch (error) {
-//       songInfoResult.innerHTML = `<div class="alert alert-danger">Failed to retrieve song info from YouTube. Please try again later.</div>`;
-//       console.error(error);
-//     }
-//   };
-  
-
-// // Function to get lyrics from Lyrics API
-// const getLyrics = async (artist: string, title: string) => {
-//   try {
-//     const response = await fetch(`https://api.lyrics.ovh/v1/${artist}/${title}`);
-//     const data = await response.json();
-
-//     if (data.lyrics) {
-//       lyricsResult.innerHTML = `
-//         <h5 class="mt-4">${title} - ${artist}</h5>
-//         <pre>${data.lyrics}</pre>
-//       `;
-//     } else {
-//       lyricsResult.innerHTML = `<div class="alert alert-danger">Lyrics not found.</div>`;
-//     }
-//   } catch (error) {
-//     lyricsResult.innerHTML = `<div class="alert alert-danger">Something went wrong. Please try again.</div>`;
-//     console.error(error);
-//   }
-// };
-
-// searchBtn.addEventListener('click', async () => {
-//   const artistInput = (document.getElementById('artist') as HTMLInputElement).value.trim();
-//   const titleInput = (document.getElementById('title') as HTMLInputElement).value.trim();
-
-//   if (!artistInput || !titleInput) {
-//     lyricsResult.innerHTML = `<div class="alert alert-warning">Please enter both artist and song title.</div>`;
-//     return;
-//   }
-
-//   lyricsResult.innerHTML = `<div class="text-center"><div class="spinner-border"></div></div>`;
-//   songInfoResult.innerHTML = ''; // Clear song info before fetching new one
-
-//   // Get lyrics
-//   await getLyrics(artistInput, titleInput);
-
-//   // Get song info from YouTube
-//   await getYouTubeSongInfo(artistInput, titleInput);
-// });
-
-// // Toggle Dark Mode
-// toggleBtn.addEventListener('click', () => {
-//   document.body.classList.toggle('dark-mode');
-// });
+darkModeBtn.addEventListener('click', () => {
+  document.body.classList.add('dark-mode');
+  darkModeBtn.classList.add('active');
+  lightModeBtn.classList.remove('active');
+});
