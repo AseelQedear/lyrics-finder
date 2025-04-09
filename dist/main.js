@@ -48,6 +48,16 @@ const getYouTubeSongInfo = (artist, title) => __awaiter(void 0, void 0, void 0, 
             link.href = `https://www.youtube.com/watch?v=${video.id.videoId}`;
             link.target = '_blank';
             link.textContent = 'Watch on YouTube';
+            link.style.backgroundColor = "#8776a7";
+            link.style.borderColor = "#8776a7";
+            link.addEventListener('mouseover', () => {
+                link.style.backgroundColor = "#6f6292";
+                link.style.borderColor = "#6f6292";
+            });
+            link.addEventListener('mouseout', () => {
+                link.style.backgroundColor = "#8776a7";
+                link.style.borderColor = "#8776a7";
+            });
             cardBody.appendChild(titleEl);
             cardBody.appendChild(descEl);
             cardBody.appendChild(link);
@@ -70,13 +80,20 @@ const getLyrics = (artist, title) => __awaiter(void 0, void 0, void 0, function*
         const data = yield response.json();
         clearElement(lyricsResult);
         if (data.lyrics) {
+            const card = document.createElement('div');
+            card.className = 'card';
+            const cardBody = document.createElement('div');
+            cardBody.className = 'card-body';
             const header = document.createElement('h5');
-            header.className = 'mt-4';
+            header.className = 'card-title';
             header.textContent = `${title} - ${artist}`;
             const pre = document.createElement('pre');
+            pre.className = 'card-text';
             pre.textContent = data.lyrics;
-            lyricsResult.appendChild(header);
-            lyricsResult.appendChild(pre);
+            cardBody.appendChild(header);
+            cardBody.appendChild(pre);
+            card.appendChild(cardBody);
+            lyricsResult.appendChild(card);
         }
         else {
             lyricsResult.appendChild(createAlert('Lyrics not found.', 'danger'));
@@ -106,14 +123,29 @@ searchBtn.addEventListener('click', () => __awaiter(void 0, void 0, void 0, func
 }));
 lightModeBtn.addEventListener('click', () => {
     document.body.classList.remove('dark-mode');
+    document.body.classList.add('light-mode');
     document.body.style.backgroundImage = "url('media/background2.jpg')";
     lightModeBtn.classList.add('active');
     darkModeBtn.classList.remove('active');
 });
 darkModeBtn.addEventListener('click', () => {
     document.body.classList.add('dark-mode');
+    document.body.classList.remove('light-mode');
     document.body.style.backgroundImage = "url('media/background1.jpg')";
     darkModeBtn.classList.add('active');
     lightModeBtn.classList.remove('active');
 });
+const handleKeyboardInput = (event) => {
+    if (event.key === 'Enter') {
+        console.log('Enter key pressed');
+        if (searchBtn) {
+            searchBtn.click();
+        }
+    }
+};
+const artistInput = document.getElementById('artist');
+const titleInput = document.getElementById('title');
+console.log('artistInput:', artistInput, 'titleInput:', titleInput);
+artistInput.addEventListener('keypress', handleKeyboardInput);
+titleInput.addEventListener('keypress', handleKeyboardInput);
 //# sourceMappingURL=main.js.map

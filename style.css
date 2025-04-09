@@ -1,5 +1,17 @@
+.background-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  -webkit-backdrop-filter: blur(2px);
+          backdrop-filter: blur(2px);
+  z-index: -1;
+  pointer-events: none;
+}
+
 body {
-  font-family: sans-serif;
+  font-family: "Poppins", sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
   background-image: url("media/background2.jpg");
   background-size: 100vw 100vh;
@@ -9,8 +21,8 @@ body {
   height: 100vh;
   width: 100vw;
   position: relative;
-  -webkit-backdrop-filter: blur(2px);
-          backdrop-filter: blur(2px);
+  color: #000;
+  overflow-x: hidden;
 }
 
 .card,
@@ -20,13 +32,20 @@ pre {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+.card {
+  background-color: #f6f6ff;
+  border-radius: 0.75rem;
+}
+
 #lyricsResult pre {
-  background-color: #f0f0f0;
+  background-color: white;
   border-left: 4px solid #8776a7;
   padding: 1rem;
   white-space: pre-wrap;
   font-size: 1rem;
   color: #000;
+  font-family: "Merriweather", serif;
+  border-radius: 0.75rem;
 }
 
 .dark-mode {
@@ -36,14 +55,17 @@ pre {
 .dark-mode .card {
   background-color: #1e1e1e;
   color: #fff;
+  border-radius: 0.75rem;
 }
 .dark-mode #lyricsResult {
   background-color: #1e1e1e !important;
+  border-radius: 0.75rem;
 }
 .dark-mode #lyricsResult pre {
   color: #fff;
   background-color: rgba(121, 120, 134, 0.4196078431);
   border-color: #333;
+  font-family: "Merriweather", serif;
 }
 .dark-mode input {
   background-color: #2a2a2a !important;
@@ -62,6 +84,7 @@ pre {
   background-color: #2a2a2a;
   color: #fff;
   border-color: #333;
+  font-family: "Merriweather", serif;
 }
 
 button {
@@ -110,6 +133,7 @@ input {
   padding: 0.5rem;
   border-radius: 5px;
   font-size: 1rem;
+  font-family: "Poppins", sans-serif;
   border: 1px solid #333;
 }
 input:focus {

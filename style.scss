@@ -1,33 +1,56 @@
-$font-family: sans-serif;
+// === GLOBAL VARIABLES ===
+
+$font-ui: 'Poppins', sans-serif;
+$font-lyrics: 'Merriweather', serif;
 
 $color-light-bg: #f0f0f0;
+$color-light-card-bg: #f6f6ff;
+$color-light-text: #000;
+$color-light-border: #8776a7;
+
 $color-dark-bg: #121212;
 $color-dark-card-bg: #1e1e1e;
 $color-dark-input-bg: #2a2a2a;
 $color-dark-placeholder: white;
-$color-light-border: #8776a7;
+$color-dark-text: #fff;
 $color-dark-border: #333;
 $color-dark-border-light: #555;
+
 $color-highlight-bg: #7978866b;
+
 $color-transition: 0.3s ease;
+$border-radius: 0.75rem;
 
-$color-light-text: #000;
-$color-dark-text: #fff;
+$background-image-url: url('media/background2.jpg');
 
-$background-image-url: url('media/background2.jpg'); 
+// === BACKGROUND LAYER ===
+
+.background-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  backdrop-filter: blur(2px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+// === BASE STYLES ===
 
 body {
-  font-family: $font-family;
+  font-family: $font-ui;
   transition: background-color $color-transition, color $color-transition;
   background-image: $background-image-url;
-  background-size: 100vw 100vh; 
+  background-size: 100vw 100vh;
   background-position: center;
   background-attachment: fixed;
   background-repeat: no-repeat;
-  height: 100vh; 
-  width: 100vw;  
-  position: relative; 
-  backdrop-filter: blur(2px); 
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  color: $color-light-text;
+  overflow-x: hidden;
 }
 
 .card,
@@ -37,19 +60,28 @@ pre {
   transition: background-color $color-transition, color $color-transition;
 }
 
-// Light Mode Styles
+.card {
+  background-color: $color-light-card-bg;
+  border-radius: $border-radius;
+}
+
+// === LYRICS RESULT LIGHT MODE ===
+
 #lyricsResult {
   pre {
-    background-color: $color-light-bg;
+    background-color: white;
     border-left: 4px solid $color-light-border;
     padding: 1rem;
     white-space: pre-wrap;
     font-size: 1rem;
     color: $color-light-text;
+    font-family: $font-lyrics;
+    border-radius: $border-radius;
   }
 }
 
-// Dark Mode Styles
+// === DARK MODE ===
+
 .dark-mode {
   background-color: $color-dark-bg !important;
   color: $color-dark-text;
@@ -57,6 +89,7 @@ pre {
   .card {
     background-color: $color-dark-card-bg;
     color: $color-dark-text;
+    border-radius: $border-radius;
   }
 
   #lyricsResult {
@@ -64,9 +97,10 @@ pre {
       color: $color-dark-text;
       background-color: $color-highlight-bg;
       border-color: $color-dark-border;
+      font-family: $font-lyrics;
     }
-    
-    background-color: $color-dark-card-bg !important;  
+    background-color: $color-dark-card-bg !important;
+    border-radius: $border-radius;
   }
 
   input {
@@ -84,9 +118,11 @@ pre {
     background-color: $color-dark-input-bg;
     color: $color-dark-text;
     border-color: $color-dark-border;
+    font-family: $font-lyrics;
   }
 }
 
+// === BUTTONS ===
 
 button {
   transition: background-color $color-transition, color $color-transition;
@@ -99,7 +135,7 @@ button {
     &:hover {
       background-color: darken($color-light-border, 10%) !important;
       border-color: darken($color-light-border, 10%) !important;
-      color: $color-light-bg !important; 
+      color: $color-light-bg !important;
     }
 
     &:focus {
@@ -137,12 +173,14 @@ button {
   }
 }
 
-// Input Styles
+// === INPUTS ===
+
 input {
   transition: background-color $color-transition, color $color-transition;
   padding: 0.5rem;
   border-radius: 5px;
   font-size: 1rem;
+  font-family: $font-ui;
   border: 1px solid $color-dark-border;
 
   &:focus {
@@ -151,10 +189,11 @@ input {
   }
 }
 
-// Responsive Design Enhancements
+// === RESPONSIVE ===
+
 @media (max-width: 768px) {
   body {
-    background-size: cover; 
+    background-size: cover;
   }
 
   .card {
