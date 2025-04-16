@@ -1,0 +1,157 @@
+.background-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  -webkit-backdrop-filter: blur(2px);
+          backdrop-filter: blur(2px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  background-image: url("/public/media/background2.jpg");
+  background-size: 100vw 100vh;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  color: #000;
+  overflow-x: hidden;
+}
+
+.card,
+input,
+button,
+pre {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.card {
+  background-color: #f6f6ff;
+  border-radius: 0.75rem;
+}
+
+#lyricsResult pre {
+  background-color: white;
+  border-left: 4px solid #8776a7;
+  padding: 1rem;
+  white-space: pre-wrap;
+  font-size: 1rem;
+  color: #000;
+  font-family: "Merriweather", serif;
+  border-radius: 0.75rem;
+}
+
+.dark-mode {
+  background-color: #121212 !important;
+  color: #fff;
+}
+.dark-mode .card {
+  background-color: #1e1e1e;
+  color: #fff;
+  border-radius: 0.75rem;
+}
+.dark-mode #lyricsResult {
+  background-color: #1e1e1e !important;
+  border-radius: 0.75rem;
+}
+.dark-mode #lyricsResult pre {
+  color: #fff;
+  background-color: rgba(121, 120, 134, 0.4196078431);
+  border-color: #333;
+  font-family: "Merriweather", serif;
+}
+.dark-mode input {
+  background-color: #2a2a2a !important;
+  color: #fff !important;
+  border: 1px solid #555 !important;
+}
+.dark-mode input::-moz-placeholder {
+  color: white;
+  opacity: 1;
+}
+.dark-mode input::placeholder {
+  color: white;
+  opacity: 1;
+}
+.dark-mode pre {
+  background-color: #2a2a2a;
+  color: #fff;
+  border-color: #333;
+  font-family: "Merriweather", serif;
+}
+
+button {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+button.btn-primary {
+  background-color: #8776a7 !important;
+  border-color: #8776a7 !important;
+  color: #f0f0f0 !important;
+}
+button.btn-primary:hover {
+  background-color: #6d5c8e !important;
+  border-color: #6d5c8e !important;
+  color: #f0f0f0 !important;
+}
+button.btn-primary:focus {
+  outline: none;
+  box-shadow: none;
+}
+button.btn-light {
+  background-color: #f0f0f0;
+  border-color: #333;
+  color: #fff;
+}
+button.btn-light:hover {
+  background-color: #8776a7;
+  border-color: #8776a7;
+}
+button.btn-dark {
+  background-color: #333;
+  border-color: #555;
+  color: #fff;
+}
+button.btn-dark:hover {
+  background-color: #1a1a1a;
+  border-color: #3c3c3c;
+}
+button.active {
+  background-color: #8776a7;
+  border-color: #8776a7;
+  color: #f0f0f0;
+}
+
+input {
+  transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 0.5rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-family: "Poppins", sans-serif;
+  border: 1px solid #333;
+}
+input:focus {
+  outline: none;
+  border-color: #8776a7;
+}
+
+@media (max-width: 768px) {
+  body {
+    background-size: cover;
+  }
+  .card {
+    margin-top: 15px;
+    padding: 1rem;
+  }
+  input,
+  button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}/*# sourceMappingURL=style.css.map */

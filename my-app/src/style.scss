@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // === GLOBAL VARIABLES ===
 
 $font-ui: 'Poppins', sans-serif;
@@ -21,7 +23,7 @@ $color-highlight-bg: #7978866b;
 $color-transition: 0.3s ease;
 $border-radius: 0.75rem;
 
-$background-image-url: url('media/background2.jpg');
+$background-image-url: url('/public/media/background2.jpg');
 
 // === BACKGROUND LAYER ===
 
@@ -133,8 +135,8 @@ button {
     color: $color-light-bg !important;
 
     &:hover {
-      background-color: darken($color-light-border, 10%) !important;
-      border-color: darken($color-light-border, 10%) !important;
+      background-color: color.adjust($color-light-border, $lightness: -10%) !important;
+      border-color: color.adjust($color-light-border, $lightness: -10%) !important;
       color: $color-light-bg !important;
     }
 
@@ -161,8 +163,8 @@ button {
     color: $color-dark-text;
 
     &:hover {
-      background-color: darken($color-dark-border, 10%);
-      border-color: darken($color-dark-border-light, 10%);
+      background-color: color.adjust($color-dark-border, $lightness: -10%);
+      border-color: color.adjust($color-dark-border-light, $lightness: -10%);
     }
   }
 
